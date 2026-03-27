@@ -1,19 +1,17 @@
 import type { Metadata } from 'next'
+import { Inter } from 'next/font/google'
 import './globals.css'
+import dynamic from 'next/dynamic'
+
+const Navbar = dynamic(() => import('./components/Navbar').then(mod => ({ default: mod.Navbar })), {
+  ssr: false,
+})
+
+const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'Deadpool — Bet on Narratives',
-  description: 'The prediction market for crypto narratives. Stake on which narrative will dominate CT this week. Early callers earn more.',
-  openGraph: {
-    title: 'Deadpool — Bet on Narratives',
-    description: 'The prediction market for crypto narratives. Stake on which narrative will dominate CT this week.',
-    type: 'website',
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'Deadpool — Bet on Narratives',
-    description: 'The prediction market for crypto narratives. Stake on which narrative will dominate CT this week.',
-  },
+  title: 'Paywall.chat — Paid DMs',
+  description: 'Get paid for your attention. Send paid DMs to anyone.',
 }
 
 export default function RootLayout({
@@ -23,11 +21,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="dark">
-      <body className="antialiased">
-        <div className="noise-overlay" />
-        <div className="grid-pattern min-h-screen">
+      <body className={`${inter.className} min-h-screen bg-[#0a0a0f]`}>
+        <Navbar />
+        <main className="max-w-2xl mx-auto px-4 pb-24 pt-4">
           {children}
-        </div>
+        </main>
       </body>
     </html>
   )
